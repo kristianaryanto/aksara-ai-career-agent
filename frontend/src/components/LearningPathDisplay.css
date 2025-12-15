@@ -1,0 +1,148 @@
+/* src/components/LearningPathDisplay.css */
+
+.results-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  background: var(--panel-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+}
+
+.results-container h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.rationale-box {
+  background: rgba(0, 191, 255, 0.05);
+  border-left: 4px solid var(--accent-blue);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.rationale-box strong {
+  color: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.rationale-box p {
+  margin: 0.5rem 0 0 0;
+  color: var(--text-secondary);
+}
+
+.week-card {
+  background-color: var(--background-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.week-card:hover {
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.1);
+}
+
+.week-header {
+  padding: 1rem 1.5rem;
+  background-color: rgba(0, 191, 255, 0.1);
+}
+
+.week-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.week-content {
+  padding: 1.5rem;
+}
+
+.week-content h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-blue);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+.week-content h4:first-child {
+  margin-top: 0;
+}
+
+.week-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.week-content li {
+  padding: 0.8rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+.week-content li:last-child {
+  border-bottom: none;
+}
+
+.topic-name-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topic-icon {
+  color: var(--accent-hover);
+  flex-shrink: 0;
+}
+
+.youtube-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.youtube-link:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+.video-player-container {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.video-player-title {
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.video-player-container iframe {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}

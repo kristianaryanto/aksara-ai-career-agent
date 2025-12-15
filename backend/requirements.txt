@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+sqlalchemy
+psycopg2-binary
+google-generativeai
+google-api-python-client
+scikit-learn
+pypdf2
+requests
+beautifulsoup4
+python-multipart

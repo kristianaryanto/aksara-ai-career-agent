@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Aksara Global - BI OJK Hackathon 2025</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* --- CSS Reset & Variabel Global --- */
+        :root {
+            --bg-primary: #0D1117; /* GitHub Dark */
+            --bg-secondary: #161B22; /* GitHub Dark Dimmed */
+            --border-color: #30363D;
+            --text-primary: #E6EDF3; /* Off-white */
+            --text-secondary: #8B949E; /* Light Gray */
+            --accent-primary: #58A6FF; /* Bright Blue */
+            --accent-secondary: #39D39F; /* Bright Green */
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* --- Struktur Utama Presentasi --- */
+        .presentation-container { width: 100vw; height: 100vh; position: relative; }
+        .slides-wrapper { display: flex; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        .slide {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 8%;
+            position: relative;
+            text-align: center;
+            background-color: var(--bg-primary);
+        }
+
+        /* --- Animasi & Efek --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide.active .animated { animation: fadeInUp 0.7s 0.2s both; }
+        .slide.active .animated.delay-1 { animation-delay: 0.4s; }
+        .slide.active .animated.delay-2 { animation-delay: 0.6s; }
+        .slide.active .animated.delay-3 { animation-delay: 0.8s; }
+
+        /* --- Kontrol Navigasi --- */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        .nav-arrow:hover { background-color: var(--accent-primary); border-color: var(--accent-primary); }
+        #prev-btn { left: 30px; }
+        #next-btn { right: 30px; }
+
+        .nav-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+        .dot {
+            width: 12px; height: 12px; background-color: var(--border-color);
+            border-radius: 50%; cursor: pointer; transition: all 0.2s ease;
+        }
+        .dot:hover { background-color: var(--accent-secondary); }
+        .dot.active { background-color: var(--accent-primary); transform: scale(1.2); }
+
+        .progress-bar {
+            position: absolute; top: 0; left: 0; height: 4px;
+            background-color: var(--accent-primary); z-index: 10;
+            transition: width 0.3s ease;
+        }
+        
+        /* --- Styling Konten Slide Spesifik --- */
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; }
+        h1 { font-size: 4rem; color: var(--text-primary); line-height: 1.2; }
+        h2 { font-size: 2.8rem; color: var(--text-primary); margin-bottom: 1rem; }
+        h3 { font-size: 1.2rem; color: var(--text-secondary); font-weight: 400; max-width: 700px; }
+        p { font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary); max-width: 800px; }
+        strong { color: var(--accent-secondary); font-weight: 600; }
+        a { color: var(--accent-primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Slide 1: Judul */
+        .title-slide h1 {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .title-slide .subtitle { font-size: 1.2rem; margin-top: 1.5rem; letter-spacing: 1px; }
+        .title-slide .team-name { margin-top: 4rem; font-size: 1.2rem; }
+
+        /* Layout Kolom & Kartu */
+        .columns { display: flex; gap: 2.5rem; width: 100%; align-items: flex-start; margin-top: 2rem;}
+        .column { flex: 1; text-align: left; }
+        .card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            height: 100%;
+            text-align: center;
+        }
+        .card h3 { color: var(--accent-primary); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .card p { font-size: 1rem; margin: 0 auto; }
+        .card i { font-size: 3rem; margin-bottom: 1rem; color: var(--accent-secondary); }
+
+        /* Slide 2: Masalah */
+        .problem-card i { font-size: 4rem; color: var(--accent-primary); margin-bottom: 1.5rem; }
+        .problem-card h3 { color: var(--text-primary); }
+        .problem-card p { font-size: 1.2rem; }
+        .problem-card strong { color: var(--accent-primary); }
+
+        /* Slide 10: Tim */
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; width: 100%; margin-top: 2rem; }
+        .team-member-card { text-align: center; }
+        .team-member-card .avatar { width: 120px; height: 120px; border-radius: 50%; background-color: var(--bg-secondary); margin: 0 auto 1.5rem auto; border: 2px solid var(--border-color); display: flex; justify-content:center; align-items:center; font-size: 4rem; color: var(--accent-primary); }
+        .team-member-card h3 { color: var(--text-primary); font-size: 1.4rem; }
+        .team-member-card p { font-size: 1rem; margin-top: 0.5rem; }
+        .team-member-card .links { margin-top: 1rem; display:flex; justify-content: center; gap: 1rem; font-size: 1.5rem; color: var(--text-secondary); }
+        .team-member-card .links a { color: var(--text-secondary); }
+        .team-member-card .links a:hover { color: var(--text-primary); }
+
+        /* Mockup Frame */
+        .mockup-frame {
+            background: #010409;
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 2rem;
+        }
+        .mockup-frame video {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <div class="progress-bar"></div>
+
+        <button id="prev-btn" class="nav-arrow"><i class="ph-bold ph-caret-left"></i></button>
+        <button id="next-btn" class="nav-arrow"><i class="ph-bold ph-caret-right"></i></button>
+
+        <div class="slides-wrapper">
+
+            <section class="slide title-slide active">
+                <h1 class="animated">Aksara Global</h1>
+                <h3 class="animated delay-1">Menjembatani Talenta Digital Indonesia ke Panggung Dunia</h3>
+                <div class="subtitle animated delay-2">Proposal BI-OJK Hackathon 2025</div>
+                <div class="team-name animated delay-3">
+                    <p><strong>Tim Perkedel Sayap</strong></p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <h2 class="animated">Potensi Terpendam, Peluang Terbuang.</h2>
+                <div class="columns">
+                    <div class="column card problem-card animated delay-1">
+                        <i class="ph-bold ph-user-minus"></i>
+                        <h3>Kesenjangan Keterampilan</h3>
+                        <p>Talenta melimpah, namun skill mereka seringkali <strong>tidak cocok</strong> dengan tuntutan pekerjaan remote global.</p>
+                    </div>
+                    <div class="column card problem-card animated delay-2">
+                        <i class="ph-bold ph-trend-down"></i>
+                        <h3>Potensi Devisa Hilang</h3>
+                        <p>Ekspor jasa digital yang <strong>tidak terukur</strong> nilainya mencapai triliunan Rupiah setiap tahun.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <h2 class="animated">Data Ekonomi yang Anda Lihat Tidak Lengkap.</h2>
+                <h3 class="animated delay-1">Kontribusi puluhan ribu pekerja digital Indonesia adalah <strong>titik buta (blind spot)</strong> dalam neraca perdagangan nasional.</h3>
+                <p class="animated delay-2" style="margin-top: 2rem;">Bagaimana kita bisa membuat kebijakan yang akurat, jika kita tidak bisa mengukur salah satu sektor ekonomi digital yang paling potensial?</p>
+            </section>
+            
+            <section class="slide">
+                 <h3 class="subtitle animated">Solusi Kami</h3>
+                 <h1 class="animated delay-1">Aksara Global</h1>
+                 <h3 class="animated delay-2" style="max-width: 800px;">Platform AI yang mengubah potensi menjadi <strong>ekspor jasa digital terukur</strong> dengan membuat jalur belajar hiper-personalisasi.</h3>
+            </section>
+
+            <section class="slide">
+                <h2 class="animated">Siap Mendunia dalam 3 Langkah Mudah.</h2>
+                 <div class="columns">
+                    <div class="column card animated delay-1">
+                        <i class="ph-bold ph-upload-simple"></i>
+                        <h3>1. Analisis Profil</h3>
+                        <p>Unggah CV dan tentukan pekerjaan impian. AI kami akan menganalisis DNA keterampilan Anda.</p>
+                    </div>
+                    <div class="column card animated delay-2">
+                        <i class="ph-bold ph-brain"></i>
+                        <h3>2. Dapatkan Jalur AI</h3>
+                        <p>Dalam hitungan detik, dapatkan kurikulum adaptif yang fokus hanya pada penutupan kesenjangan skill.</p>
+                    </div>
+                     <div class="column card animated delay-3">
+                        <i class="ph-bold ph-rocket-launch"></i>
+                        <h3>3. Kuasai & Taklukkan</h3>
+                        <p>Belajar dengan panduan video, kerjakan proyek nyata, dan bangun portofolio untuk pasar global.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="slide">
+                <h2 class="animated">Ditenagai oleh Teknologi AI Terkini</h2>
+                <div class="columns">
+                    <div class="column animated delay-1">
+                        <h3><i class="ph-bold ph-sparkle"></i> Mesin Personalisasi</h3>
+                        <p><strong>Google Gemini 1.5 Flash</strong> melakukan analisis kesenjangan mendalam dan menyusun kurikulum, menentukan topik dan durasi belajar paling optimal.</p>
+                    </div>
+                     <div class="column animated delay-2">
+                        <h3><i class="ph-bold ph-youtube-logo"></i> Konten Dinamis</h3>
+                        <p><strong>YouTube Data API</strong> memperkaya setiap topik dan ide proyek dengan video tutorial yang relevan dan terkurasi secara otomatis, langsung di dalam platform.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="slide">
+                <h2 class="animated">Show, Don't Tell: Lihat Cara Kerjanya.</h2>
+                <div class="mockup-frame animated delay-1">
+                    <video controls muted loop autoplay>
+                        <source src="https://github.com/user-attachments/assets/1315b882-9a3d-4c3e-ad30-eb0c8853b811" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                </div>
+            </section>
+            
+            <section class="slide">
+                <h2 class="animated">Model Bisnis Skalabel</h2>
+                 <div class="columns">
+                    <div class="column card animated delay-1">
+                        <i class="ph-bold ph-users"></i>
+                        <h3>B2C (Freemium)</h3>
+                        <p>Menarik pengguna masif dengan akses gratis, lalu menawarkan fitur premium (Tutor AI, sertifikasi) melalui langganan.</p>
+                    </div>
+                    <div class="column card animated delay-2">
+                        <i class="ph-bold ph-buildings"></i>
+                        <h3>B2B (Enterprise)</h3>
+                        <p>Menyediakan lisensi bagi perusahaan untuk program *upskilling* & *reskilling* karyawan secara efisien.</p>
+                    </div>
+                     <div class="column card animated delay-3">
+                        <i class="ph-bold ph-flag"></i>
+                        <h3>B2G (Pemerintah)</h3>
+                        <p>Menjadi mitra strategis pemerintah dalam program pelatihan digital nasional berskala besar.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="slide">
+                <h2 class="animated">Dampak Nyata untuk Indonesia</h2>
+                 <div class="columns">
+                    <div class="column card animated delay-1">
+                        <i class="ph-bold ph-chart-line-up"></i>
+                        <h3>Dampak Ekonomi</h3>
+                        <p>Meningkatkan <strong>pendapatan devisa</strong> dari sektor jasa digital yang sebelumnya tidak tercatat.</p>
+                    </div>
+                    <div class="column card animated delay-2">
+                        <i class="ph-bold ph-house-line"></i>
+                        <h3>Dampak Sosial</h3>
+                        <p>Memungkinkan talenta bekerja global dari Indonesia, <strong>mengurangi urbanisasi dan brain drain.</strong></p>
+                    </div>
+                     <div class="column card animated delay-3">
+                        <i class="ph-bold ph-bank"></i>
+                        <h3>Dampak Kebijakan</h3>
+                        <p>Memberikan <strong>data ekonomi baru</strong> yang akurat bagi BI & OJK untuk perumusan kebijakan yang lebih efektif.</p>
+                    </div>
+                </div>
+            </section>
+            
+             <section class="slide">
+                <h2 class="animated">Tim Perkedel Sayap</h2>
+                <div class="team-grid">
+                    <div class="team-member-card animated delay-1">
+                        <div class="avatar"><i class="ph ph-brain"></i></div>
+                        <h3>Kristian</h3>
+                        <p>Team Lead & AI Visionary</p>
+                        <div class="links"><a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-github-logo"></i></a> <a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-linkedin-logo"></i></a></div>
+                    </div>
+                    <div class="team-member-card animated delay-2">
+                        <div class="avatar"><i class="ph ph-paint-brush"></i></div>
+                        <h3>Calvyn</h3>
+                        <p>Frontend & UX Maestro</p>
+                        <div class="links"><a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-github-logo"></i></a> <a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-linkedin-logo"></i></a></div>
+                    </div>
+                    <div class="team-member-card animated delay-3">
+                        <div class="avatar"><i class="ph ph-database"></i></div>
+                        <h3>Alfian dan Ichsan</h3>
+                        <p>Backend & System Architect</p>
+                        <div class="links"><a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-github-logo"></i></a> <a href="#" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-linkedin-logo"></i></a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <h2 class="animated">Mari Jadikan Indonesia<br>Pusat Talenta Digital Dunia.</h2>
+                <h3 class="animated delay-1">Aksara Global bukan sekadar proyek. Ini adalah inisiatif infrastruktur ekonomi digital masa depan.</h3>
+                <h1 class="animated delay-2" style="margin-top: 3rem;">Terima Kasih.</h1>
+                <p class="animated delay-3">Kontak: a.wkristian2@gmail.com</p>
+            </section>
+
+        </div>
+
+        <div class="nav-dots"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slidesWrapper = document.querySelector('.slides-wrapper');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const dotsContainer = document.querySelector('.nav-dots');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = document.querySelectorAll('.dot');
+
+            function updateSlide() {
+                slidesWrapper.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+                dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+            }
+
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateSlide();
+            }
+
+            function showNextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlide();
+            }
+
+
+
+            function showPrevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlide();
+            }
+
+            nextBtn.addEventListener('click', showNextSlide);
+            prevBtn.addEventListener('click', showPrevSlide);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault(); // Mencegah spasi melakukan scroll
+                    showNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    showPrevSlide();
+                }
+            });
+
+            updateSlide();
+        });
+    </script>
+</body>
+</html>
